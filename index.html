@@ -1,0 +1,14 @@
+<html>
+    <div id="test">
+        test lock
+    </div>
+    <script>
+        let test_element = document.getElementById("test");
+        let locked = false;
+
+        test_element.addEventListener('click', async () => {
+            await(test_element.requestFullscreen());
+            test_element.requestPointerLock({unadjustedMovement:true});
+        });
+    </script>
+</html>
