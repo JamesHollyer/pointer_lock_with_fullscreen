@@ -2,13 +2,25 @@
     <div id="test">
         test lock
     </div>
+    <div id="movementx"></div>
     <script>
         let test_element = document.getElementById("test");
+        let movement = document.getElementById("movementx");
+        let recorded_movements = [];
         let locked = false;
 
         test_element.addEventListener('click', async () => {
             await(test_element.requestFullscreen());
-            test_element.requestPointerLock({unadjustedMovement:true});
+            test_element.requestPointerLock({unadjustedMovement:true}).catch(err => {
+                console.log('error', err);
+            });
         });
+
+        test_element.addEventListener('mousemove', (event) => {
+            console.log('movementx:', event.movementX);
+            recorded_movements.push(event.movementX);
+            movement.innerText = recorded_movements;
+        });
+
     </script>
 </html>
