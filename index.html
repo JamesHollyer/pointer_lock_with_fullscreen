@@ -3,12 +3,20 @@
         test lock w/ unadjustedMovement
     </div>
     <div id="test2">
-        test lock
+        test lock w/ fullscreen
+    </div>
+    <div id="test3">
+        test lock w/unadjustedMovement, fullscreen and keyboard lock
+    </div>
+    <div id="test4">
+        test lock w/fullscreen and keyboard lock
     </div>
     <div id="movementx"></div>
     <script>
         let test_element = document.getElementById("test");
         let test_element2 = document.getElementById("test2");
+        let test_element3 = document.getElementById("test3");
+        let test_element4 = document.getElementById("test4");
         let movement = document.getElementById("movementx");
         let recorded_movements = [];
         let locked = false;
@@ -22,6 +30,22 @@
 
         test_element2.addEventListener('click', async () => {
             await(test_element.requestFullscreen());
+            test_element.requestPointerLock().catch(err => {
+                console.log('error', err);
+            });
+        });
+
+        test_element3.addEventListener('click', async () => {
+            await(test_element.requestFullscreen());
+            await(navigator.keyboard.lock());
+            test_element.requestPointerLock({unadjustedMovement:true}).catch(err => {
+                console.log('error', err);
+            });
+        });
+
+        test_element4.addEventListener('click', async () => {
+            await(test_element.requestFullscreen());
+            await(navigator.keyboard.lock());
             test_element.requestPointerLock().catch(err => {
                 console.log('error', err);
             });
